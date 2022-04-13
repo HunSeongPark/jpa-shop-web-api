@@ -1,33 +1,42 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header" />
+<style>
+     .fieldError {
+        border-color: #bd2130;
+        color: #bd2130;
+     }
+</style>
 <body>
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
-    <form role="form" action="/order" method="post">
+    <form role="form" action="/order" th:object="${orderForm}" method="post">
         <div class="form-group">
-            <label for="member">주문회원</label>
-            <select name="memberId" id="member" class="form-control">
+            <label th:for="memberId">주문회원</label>
+            <select th:field="*{memberId}" class="form-control">
                 <option value="">회원선택</option>
                 <option th:each="member : ${members}"
                         th:value="${member.id}"
                         th:text="${member.name}" />
             </select>
         </div>
+        <p th:if="${#fields.hasErrors('memberId')}" th:errors="*{memberId}" th:errorclass="fieldError">멤버 에러 메시지</p>
         <div class="form-group">
-            <label for="item">상품명</label>
-            <select name="itemId" id="item" class="form-control">
+            <label th:for="itemId">상품명</label>
+            <select th:field="*{itemId}" class="form-control">
                 <option value="">상품선택</option>
                 <option th:each="item : ${items}"
                         th:value="${item.id}"
                         th:text="${item.name}" />
             </select>
         </div>
+        <p th:if="${#fields.hasErrors('itemId')}" th:errors="*{itemId}" th:errorclass="fieldError">아이템 에러 메시지</p>
         <div class="form-group">
-            <label for="count">주문수량</label>
-            <input type="number" name="count" class="form-control" id="count"
+            <label th:for="count">주문수량</label>
+            <input type="number" th:field="*{count}" class="form-control"
                    placeholder="주문 수량을 입력하세요">
         </div>
+        <p th:if="${#fields.hasErrors('count')}" th:errors="*{count}" th:errorclass="fieldError">수량 에러 메시지</p>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
     <br/>
