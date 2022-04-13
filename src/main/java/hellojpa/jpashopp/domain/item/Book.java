@@ -19,4 +19,24 @@ public class Book extends Item {
 
     private String author;
     private String isbn;
+
+    private void setAuthor(String author) {
+        this.author = author;
+    }
+
+    private void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
+    // === 생성 메서드 === //
+    public static Book createBook(String name, int price, int count, String author, String isbn) {
+        Book book = new Book();
+        book.setName(name);
+        book.setPrice(price);
+        book.setStockQuantity(count);
+        book.setAuthor(author);
+        book.setIsbn(isbn);
+
+        return book;
+    }
 }
