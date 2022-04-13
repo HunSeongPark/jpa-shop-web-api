@@ -1,4 +1,4 @@
-package hellojpa.jpashopp.controller;
+package hellojpa.jpashopp.web.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
