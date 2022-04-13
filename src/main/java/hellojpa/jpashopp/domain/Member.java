@@ -1,6 +1,7 @@
 package hellojpa.jpashopp.domain;
 
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -27,4 +28,22 @@ public class Member {
 
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>();
+
+    private void setName(String name) {
+        this.name = name;
+    }
+
+    private void setAddress(Address address) {
+        this.address = address;
+    }
+
+    // === 생성 메서드 === //
+    public static Member createMember(String name, String city, String street, String zipcode) {
+        Member member = new Member();
+        Address address = new Address(city, street, zipcode);
+        member.setName(name);
+        member.setAddress(address);
+
+        return member;
+    }
 }
