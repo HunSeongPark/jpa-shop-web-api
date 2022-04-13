@@ -26,4 +26,8 @@ public class Delivery {
 
     @Enumerated(EnumType.STRING)
     private DeliveryStatus status; // 배송상태 [READY, COMP]
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
 }

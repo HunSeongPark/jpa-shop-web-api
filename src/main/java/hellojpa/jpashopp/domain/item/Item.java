@@ -1,6 +1,7 @@
 package hellojpa.jpashopp.domain.item;
 
 import hellojpa.jpashopp.domain.Category;
+import hellojpa.jpashopp.exception.NotEnoughStockException;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,4 +32,18 @@ public abstract class Item {
 
     @ManyToMany(mappedBy = "items")
     private List<Category> categories = new ArrayList<>();
+
+    // === 비즈니스 로직 === //
+
+    public void addStockQuantity(int quantity) {
+        this.stockQuantity += quantity;
+    }
+
+    public void removeStockQuantity(int quantity) {
+        int totalQuantity = this.stockQuantity - quantity;
+        if (totalQuantity < 0) {
+            throw new NotEnoughStockException("재고가 부족합니다.");
+        }
+        this.stockQuantity = totalQuantity;
+    }
 }

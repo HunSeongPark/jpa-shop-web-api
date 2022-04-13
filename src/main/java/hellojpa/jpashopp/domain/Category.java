@@ -40,4 +40,14 @@ public class Category {
 
     @OneToMany(mappedBy = "parent")
     private List<Category> child = new ArrayList<>();
+
+    private void changeParent(Category parent) {
+        this.parent = parent;
+    }
+
+    // === 양방향 연관관계 편의 메서드 === //
+    public void addChildCategory(Category child) {
+        this.getChild().add(child);
+        child.changeParent(this);
+    }
 }
