@@ -31,8 +31,8 @@ Spring Boot + JPA 기반 상품 주문 웹사이트
 ## 프로젝트 완성 후 생각
 - 무분별한 수정 및 추적의 어려움으로 인해 Entity 내 setter를 가급적 열어두지 않아야 한다.
 - -> setter를 열지 않고 값 설정 / JPA의 Dirty Checking를 활용한 값의 업데이트를 어떻게 해야할까?
-  - -> 값 설정 : protected constructor + Entity 내부에 객체 생성 메서드를 활용하는 방식 고려
-  - -> 값 수정 : private setter + 비즈니스 로직 메서드를 활용하는 방식 고려
+  - -> 값 설정 : `protected constructor + Entity 내부에 객체 생성 메서드`를 활용하는 방식 고려
+  - -> 값 수정 : `private setter + 비즈니스 로직 메서드`를 활용하는 방식 고려
   - 해당 프로젝트에 위 방식을 적용해보았으나 부족한 부분이 많은 것 같다. 
   - 앞으로 공부 및 다양한 프로젝트를 만들어보며 알아보장
                     
