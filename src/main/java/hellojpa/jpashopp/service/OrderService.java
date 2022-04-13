@@ -1,9 +1,6 @@
 package hellojpa.jpashopp.service;
 
-import hellojpa.jpashopp.domain.Delivery;
-import hellojpa.jpashopp.domain.Member;
-import hellojpa.jpashopp.domain.Order;
-import hellojpa.jpashopp.domain.OrderItem;
+import hellojpa.jpashopp.domain.*;
 import hellojpa.jpashopp.domain.item.Item;
 import hellojpa.jpashopp.repository.ItemRepository;
 import hellojpa.jpashopp.repository.MemberRepository;
@@ -59,7 +56,7 @@ public class OrderService {
         order.cancel();
     }
 
-//    public List<Order> findOrders(OrderSearch orderSearch) {
-//        return orderRepository.findAll(orderSearch);
-//    }
+    public List<Order> findOrders(OrderSearch orderSearch) {
+        return orderRepository.findAll(orderSearch);
+    }
 }
