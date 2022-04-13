@@ -30,4 +30,15 @@ public class Delivery {
     public void setOrder(Order order) {
         this.order = order;
     }
+
+    private void setAddress(Address address) {
+        this.address = address;
+    }
+
+    // === 생성 메서드 === //
+    public static Delivery createDelivery(Address address) {
+        Delivery delivery = new Delivery();
+        delivery.setAddress(address);
+        return delivery;
+    }
 }
