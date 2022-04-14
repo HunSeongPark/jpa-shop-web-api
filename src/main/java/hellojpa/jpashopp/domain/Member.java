@@ -48,4 +48,12 @@ public class Member {
 
         return member;
     }
+
+    // API 예제용. name만 가지는 Member 객체 생성 메서드
+    public static Member createMember(String name) {
+        Member member = new Member();
+        member.setName(name);
+
+        return member;
+    }
 }

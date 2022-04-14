@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 
 /**
  * Created by Hunseong on 2022/04/14
@@ -26,15 +27,29 @@ public class MemberApiController {
         return new CreateMemberResponse(id);
     }
 
-    // === DTO === //
+    @PostMapping("/api/v2/members")
+    public CreateMemberResponse saveMemberV2(@RequestBody @Valid CreateMemberRequest request) {
+        Member member = Member.createMember(request.getName());
+        Long id = memberService.join(member);
 
+        return new CreateMemberResponse(id);
+    }
+
+    // ================= DTO =================== //
     @Getter
     static class CreateMemberResponse {
+
         private Long id;
 
         public CreateMemberResponse(Long id) {
             this.id = id;
         }
+    }
+
+    @Getter
+    static class CreateMemberRequest {
+        @NotEmpty
+        private String name;
     }
 
 }
