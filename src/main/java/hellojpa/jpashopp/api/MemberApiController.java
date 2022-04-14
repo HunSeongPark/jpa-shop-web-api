@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
+import java.util.List;
 
 /**
  * Created by Hunseong on 2022/04/14
@@ -16,6 +17,11 @@ import javax.validation.constraints.NotEmpty;
 public class MemberApiController {
 
     private final MemberService memberService;
+
+    @GetMapping("/api/v1/members")
+    public List<Member> membersV1() {
+        return memberService.findAll();
+    }
 
     @PostMapping("/api/v1/members")
     public CreateMemberResponse saveMemberV1(@RequestBody @Valid Member member) {
