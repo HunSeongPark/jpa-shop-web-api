@@ -1,9 +1,10 @@
-# jpa-shop-web
-Spring Boot + JPA 기반 상품 주문 웹사이트                 
-강의 : [실전! 스프링 부트와 JPA 활용1 - 웹 애플리케이션 개발, 김영한 강사님](https://www.inflearn.com/course/%EC%8A%A4%ED%94%84%EB%A7%81%EB%B6%80%ED%8A%B8-JPA-%ED%99%9C%EC%9A%A9-1)            
+# jpa-shop-web-api
+Spring Boot + JPA 기반 상품 주문 웹사이트, API                                     
+강의 1 : [실전! 스프링 부트와 JPA 활용1 - 웹 애플리케이션 개발, 김영한 강사님](https://www.inflearn.com/course/%EC%8A%A4%ED%94%84%EB%A7%81%EB%B6%80%ED%8A%B8-JPA-%ED%99%9C%EC%9A%A9-1)               
+강의 2 : [실전! 스프링 부트와 JPA 활용2 - API 개발과 성능 최적화, 김영한 강사님](https://www.inflearn.com/course/%EC%8A%A4%ED%94%84%EB%A7%81%EB%B6%80%ED%8A%B8-JPA-API%EA%B0%9C%EB%B0%9C-%EC%84%B1%EB%8A%A5%EC%B5%9C%EC%A0%81%ED%99%94)            
 
 ## Project Features
-
+[WEB]                     
 - Member
   - 회원가입 `/members/new`
   - 회원목록 `/members`               
@@ -17,7 +18,38 @@ Spring Boot + JPA 기반 상품 주문 웹사이트
   - 상품주문 `/order`
   - 주문내역 `/orders`
 
+[API]                           
+```
+- Member
+V1 : 회원조회 - 엔티티 직접 노출
+V2 : 회원조회 - 엔티티를 DTO로 변환
 
+- Order (@XToOne, OrderSimpleController)
+V1 : 주문조회 - 엔티티 직접 노출
+V2 : 주문조회 - 엔티티를 DTO로 변환
+V3 : 주문조회 - fetch join을 통한 최적화
+V4 : 주문조회 - JPA에서 DTO로 바로 Query하여 조회
+
+- Order (@XToMany, OrderApiController)
+V1 : 주문조회 - 엔티티 직접 노출
+V2 : 주문조회 - 엔티티를 DTO로 변환
+V3 : 주문조회 - fetch join을 통한 최적화
+V3.1 : 주문조회 - fetch join 시 Paging 불가능한 문제 해결
+V4 : 주문조회 - JPA에서 DTO로 바로 Query하여 조회
+V5 : 주문조회 - V4 최적화 (Query N+1 -> 1+1)
+V6 : 주문조회 - V5 최적화 (플랫데이터 최적화 Query 1+1 -> 1)
+```
+
+- Member
+  - 회원가입 `POST /api/vN/members`
+  - 회원목록 `GET /api/vN/members`
+  - 회원수정 `PUT /api/vN/members/{id}`               
+              
+- Order (@XToOne 조회)
+  - 주문조회 `GET /api/vN/simple-orders`
+- Order (@XToMany 조회)
+  - 주문조회 `GET /api/vN/orders`               
+                    
 ## Project Setting              
 * Spring boot version : 2.6.6                   
 * Dependencies
