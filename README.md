@@ -45,7 +45,7 @@ V6 : 주문조회 - V5 최적화 (플랫데이터 최적화 Query 1+1 -> 1)
 - Member
   - 회원가입 `POST /api/vN/members`
   - 회원목록 `GET /api/vN/members`
-  - 회원수정 `PUT /api/vN/members/{id}`               
+  - 회원수정 `PATCH /api/vN/members/{id}`               
               
 - Order (@XToOne 조회)
   - 주문조회 `GET /api/vN/simple-orders`
