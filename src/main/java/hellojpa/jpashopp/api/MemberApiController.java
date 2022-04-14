@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by Hunseong on 2022/04/14
@@ -21,6 +22,15 @@ public class MemberApiController {
     @GetMapping("/api/v1/members")
     public List<Member> membersV1() {
         return memberService.findAll();
+    }
+
+    @GetMapping("/api/v2/members")
+    public Result<List<MemberDto>> membersV2() {
+
+        List<MemberDto> members = memberService.findAll().stream()
+                .map(m -> new MemberDto(m.getName())).collect(Collectors.toList());
+
+        return new Result<>(members);
     }
 
     @PostMapping("/api/v1/members")
@@ -72,6 +82,18 @@ public class MemberApiController {
     @AllArgsConstructor
     static class UpdateMemberResponse {
         private Long id;
+        private String name;
+    }
+
+    @Getter
+    @AllArgsConstructor
+    static class Result<T> {
+        private T data;
+    }
+
+    @Getter
+    @AllArgsConstructor
+    static class MemberDto {
         private String name;
     }
 
