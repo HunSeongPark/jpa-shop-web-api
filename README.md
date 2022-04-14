@@ -20,6 +20,8 @@ Spring Boot + JPA 기반 상품 주문 웹사이트, API
 
 [API]                           
 ```
+Version
+    
 - Member
 V1 : 회원조회 - 엔티티 직접 노출
 V2 : 회원조회 - 엔티티를 DTO로 변환
