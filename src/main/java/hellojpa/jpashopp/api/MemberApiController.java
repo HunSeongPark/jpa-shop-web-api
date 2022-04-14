@@ -2,12 +2,8 @@ package hellojpa.jpashopp.api;
 
 import hellojpa.jpashopp.domain.Member;
 import hellojpa.jpashopp.service.MemberService;
-import lombok.Data;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.*;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
@@ -35,10 +31,24 @@ public class MemberApiController {
         return new CreateMemberResponse(id);
     }
 
+    @PatchMapping("/api/v2/members/{id}")
+    public UpdateMemberResponse updateMemberV2(@PathVariable Long id, @RequestBody @Valid UpdateMemberRequest request) {
+
+        memberService.update(id, request.getName());
+        Member updatedMember = memberService.findMember(id);
+
+        return new UpdateMemberResponse(updatedMember.getId(), updatedMember.getName());
+    }
+
     // ================= DTO =================== //
     @Getter
-    static class CreateMemberResponse {
+    static class CreateMemberRequest {
+        @NotEmpty
+        private String name;
+    }
 
+    @Getter
+    static class CreateMemberResponse {
         private Long id;
 
         public CreateMemberResponse(Long id) {
@@ -47,8 +57,15 @@ public class MemberApiController {
     }
 
     @Getter
-    static class CreateMemberRequest {
+    static class UpdateMemberRequest {
         @NotEmpty
+        private String name;
+    }
+
+    @Getter
+    @AllArgsConstructor
+    static class UpdateMemberResponse {
+        private Long id;
         private String name;
     }
 
