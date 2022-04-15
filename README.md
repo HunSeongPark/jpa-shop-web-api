@@ -39,7 +39,6 @@ V3 : 주문조회 - fetch join을 통한 최적화
 V3.1 : 주문조회 - fetch join 시 Paging 불가능한 문제 해결
 V4 : 주문조회 - JPA에서 DTO로 바로 Query하여 조회
 V5 : 주문조회 - V4 최적화 (Query N+1 -> 1+1)
-V6 : 주문조회 - V5 최적화 (플랫데이터 최적화 Query 1+1 -> 1)
 ```
 
 - Member
