@@ -50,6 +50,22 @@ public class OrderApiController {
         return new Result<>(collect);
     }
 
+    /**
+     * V3
+     * 쿼리 횟수 : fetch join으로 Query 1번
+     * 페이징 불가능, select절에 많은 데이터
+     */
+    @GetMapping("/api/v3/orders")
+    public Result<List<OrderDto>> ordersV3() {
+
+        List<Order> orders = orderRepository.findAllWithItem();
+        List<OrderDto> collect = orders.stream()
+                .map(OrderDto::new)
+                .collect(Collectors.toList());
+
+        return new Result<>(collect);
+    }
+
 
     // ============== DTO ============== //
 
