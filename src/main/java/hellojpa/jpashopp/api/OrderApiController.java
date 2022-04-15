@@ -67,6 +67,12 @@ public class OrderApiController {
         return new Result<>(collect);
     }
 
+    /**
+     * V3.1
+     * Paging 불가능한 V3 보완
+     * batch fetch size 지정
+     * 페이징 가능, 쿼리 횟수 Member,Delivery 1 + OrderItems 1 + Item 1 = 3
+     */
     @GetMapping("/api/v3.1/orders")
     public Result<List<OrderDto>> ordersV3Paging(
             @RequestParam(value = "offset", defaultValue = "0") int offset,
