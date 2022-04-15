@@ -5,6 +5,8 @@ import hellojpa.jpashopp.domain.Order;
 import hellojpa.jpashopp.domain.OrderSearch;
 import hellojpa.jpashopp.domain.OrderStatus;
 import hellojpa.jpashopp.repository.OrderRepository;
+import hellojpa.jpashopp.repository.order.simplequery.OrderSimpleQueryDto;
+import hellojpa.jpashopp.repository.order.simplequery.OrderSimpleQueryRepository;
 import hellojpa.jpashopp.service.OrderService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,6 +27,7 @@ import java.util.stream.Collectors;
 public class OrderSimpleApiController {
 
     private final OrderRepository orderRepository;
+    private final OrderSimpleQueryRepository orderSimpleQueryRepository;
 
     @GetMapping("/api/v1/simple-orders")
     public List<Order> ordersV1() {
@@ -66,6 +69,16 @@ public class OrderSimpleApiController {
                 .collect(Collectors.toList());
 
         return new Result<>(collect);
+    }
+
+    /**
+     * V4
+     * 쿼리 횟수 : DTO를 직접 조회함으로써 select 절에 원하는 데이터만 join을 통해 쿼리 한 번으로 조회
+     * Query 1
+     */
+    @GetMapping("/api/v4/simple-orders")
+    public Result<List<OrderSimpleQueryDto>> ordersV4() {
+        return new Result<>(orderSimpleQueryRepository.findAllOrderDto());
     }
 
 

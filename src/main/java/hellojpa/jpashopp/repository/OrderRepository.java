@@ -3,6 +3,7 @@ package hellojpa.jpashopp.repository;
 import hellojpa.jpashopp.domain.Member;
 import hellojpa.jpashopp.domain.Order;
 import hellojpa.jpashopp.domain.OrderSearch;
+import hellojpa.jpashopp.repository.order.simplequery.OrderSimpleQueryDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
