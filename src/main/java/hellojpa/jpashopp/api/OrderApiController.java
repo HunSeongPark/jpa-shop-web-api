@@ -106,6 +106,22 @@ public class OrderApiController {
         return new Result<>(orders);
     }
 
+    /**
+     * V5
+     * V4에서 각 Order마다 컬렉션을 조회하는 +N 단점 보완
+     * XToOne은 row 수에 영향을 주지 않으므로 fetch join을 통해 한번에 조회 (Query 1)
+     * XToMany는 Order의 Id List를 IN절에 조건으로 주어 OrderItem List 한번에 조회
+     * 해당 List는 orderId로 분류하여 Map<Long id, List<OrderItemDTO>> 형태로 저장하여 map.get(order.getId))로 저장
+     * 쿼리 횟수 1 + 1
+     */
+    @GetMapping("/api/v5/orders")
+    public Result<List<OrderQueryDto>> ordersV5() {
+
+        List<OrderQueryDto> orders = orderQueryRepository.findOrderQueryDtosOpt();
+
+        return new Result<>(orders);
+    }
+
 
     // ============== DTO ============== //
 
