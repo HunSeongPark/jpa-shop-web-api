@@ -1,5 +1,6 @@
 package hellojpa.jpashopp.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import hellojpa.jpashopp.domain.item.Item;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -25,6 +26,7 @@ public class OrderItem {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
+    @JsonIgnore
     private Order order;
 
     private int orderPrice; // 주문가격

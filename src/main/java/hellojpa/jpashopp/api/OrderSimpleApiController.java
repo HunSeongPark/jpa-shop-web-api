@@ -7,11 +7,9 @@ import hellojpa.jpashopp.domain.OrderStatus;
 import hellojpa.jpashopp.repository.OrderRepository;
 import hellojpa.jpashopp.repository.order.simplequery.OrderSimpleQueryDto;
 import hellojpa.jpashopp.repository.order.simplequery.OrderSimpleQueryRepository;
-import hellojpa.jpashopp.service.OrderService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
