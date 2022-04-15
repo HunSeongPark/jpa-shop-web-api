@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
@@ -27,7 +28,7 @@ public class OrderApiController {
         for (Order order : orders) {
             order.getMember().getName(); // LAZY 강제 초기화(Member)
             order.getDelivery().getStatus(); // LAZY 강제 초기화(Delivery)
-            
+
             List<OrderItem> orderItems = order.getOrderItems();
             orderItems.forEach(o -> o.getItem().getName()); // LAZY 강제 초기화(OrderItem, Item)
         }
@@ -59,6 +60,20 @@ public class OrderApiController {
     public Result<List<OrderDto>> ordersV3() {
 
         List<Order> orders = orderRepository.findAllWithItem();
+        List<OrderDto> collect = orders.stream()
+                .map(OrderDto::new)
+                .collect(Collectors.toList());
+
+        return new Result<>(collect);
+    }
+
+    @GetMapping("/api/v3.1/orders")
+    public Result<List<OrderDto>> ordersV3Paging(
+            @RequestParam(value = "offset", defaultValue = "0") int offset,
+            @RequestParam(value = "limit", defaultValue = "100") int limit
+    ) {
+        List<Order> orders = orderRepository.findAllWithMemberDelivery(offset, limit);
+
         List<OrderDto> collect = orders.stream()
                 .map(OrderDto::new)
                 .collect(Collectors.toList());
