@@ -2,6 +2,8 @@ package hellojpa.jpashopp.api;
 
 import hellojpa.jpashopp.domain.*;
 import hellojpa.jpashopp.repository.OrderRepository;
+import hellojpa.jpashopp.repository.order.query.OrderQueryDto;
+import hellojpa.jpashopp.repository.order.query.OrderQueryRepository;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +23,7 @@ import java.util.stream.Collectors;
 public class OrderApiController {
 
     private final OrderRepository orderRepository;
+    private final OrderQueryRepository orderQueryRepository;
 
     @GetMapping("/api/v1/orders")
     public List<Order> ordersV1() {
@@ -85,6 +88,22 @@ public class OrderApiController {
                 .collect(Collectors.toList());
 
         return new Result<>(collect);
+    }
+
+    /**
+     * V4
+     * XToMany에 대한 DTO 직접 조회 방식
+     * XToOne은 row 수에 영향을 주지 않으므로 fetch join을 통해 한번에 조회 (Query 1)
+     * XToMany는 row 수에 영향을 주므로 각 Order에 대한 orderId를 기반으로 OrderItems 조회 (Query Order 수 N)
+     * 쿼리 횟수 1 + N
+     */
+    @GetMapping("/api/v4/orders")
+    public Result<List<OrderQueryDto>> ordersV4() {
+
+        // 쿼리 1 (Order) + N (Order 수만큼 루프 돌면서 OrderItems 저장)
+        List<OrderQueryDto> orders = orderQueryRepository.findOrderQueryDtos();
+
+        return new Result<>(orders);
     }
 
 
